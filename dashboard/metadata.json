@@ -1,0 +1,5 @@
+{
+  "display_name": "Base WETH/USDC Momentum",
+  "description": "RSI momentum dashboard for WETH/USDC swaps on Base Uniswap V3.",
+  "icon": "📈"
+}

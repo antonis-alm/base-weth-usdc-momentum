@@ -1,0 +1,33 @@
+{
+  "chain": "base",
+  "protocol": "uniswap_v3",
+  "base_token": "WETH",
+  "quote_token": "USDC",
+  "signal_pool_address": "0xd0b53d9277642d899df5c87a3966a349a798f224",
+  "timeframe": "15m",
+  "rsi_period": 14,
+  "lower_band": 45,
+  "upper_band": 55,
+  "min_trade_usd": "5",
+  "max_slippage_bps": 50,
+  "force_action": "",
+  "token_funding": [
+    {
+      "symbol": "WETH",
+      "address": "0x4200000000000000000000000000000000000006",
+      "amount": "10",
+      "amount_type": "usd"
+    },
+    {
+      "symbol": "USDC",
+      "address": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      "amount": "10",
+      "amount_type": "usd"
+    }
+  ],
+  "anvil_funding": {
+    "ETH": 10,
+    "WETH": 2,
+    "USDC": 5000
+  }
+}
