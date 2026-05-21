@@ -13,8 +13,8 @@ from almanak.framework.dashboard.templates import (
 def _build_rsi_config(strategy_config: dict[str, Any]):
     config = get_rsi_config(
         period=int(strategy_config.get("rsi_period", 14)),
-        overbought=float(strategy_config.get("upper_band", 55)),
-        oversold=float(strategy_config.get("lower_band", 45)),
+        overbought=float(strategy_config.get("upper_band", 60)),
+        oversold=float(strategy_config.get("lower_band", 40)),
     )
     config.base_token = str(strategy_config.get("base_token", config.base_token))
     config.quote_token = str(strategy_config.get("quote_token", config.quote_token))
