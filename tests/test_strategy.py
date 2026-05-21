@@ -18,8 +18,8 @@ def _make_strategy(**overrides):
         "signal_pool_address": "0xd0b53d9277642d899df5c87a3966a349a798f224",
         "timeframe": "15m",
         "rsi_period": 14,
-        "lower_band": 45,
-        "upper_band": 55,
+        "lower_band": 40,
+        "upper_band": 60,
         "min_trade_usd": "25",
         "max_slippage_bps": 50,
         "force_action": "",
@@ -85,7 +85,7 @@ def test_neutral_to_above_cross_swaps_usdc_to_weth():
     strategy = _make_strategy()
     strategy._prev_rsi_zone = "neutral"
     market = _market(datetime(2026, 1, 1, 12, 30, tzinfo=UTC), usdc_usd="80")
-    strategy._latest_rsi = lambda _: Decimal("56")
+    strategy._latest_rsi = lambda _: Decimal("61")
 
     intent = strategy.decide(market)
 
@@ -99,7 +99,7 @@ def test_neutral_to_below_cross_swaps_weth_to_usdc():
     strategy = _make_strategy()
     strategy._prev_rsi_zone = "neutral"
     market = _market(datetime(2026, 1, 1, 12, 30, tzinfo=UTC), weth_usd="80")
-    strategy._latest_rsi = lambda _: Decimal("44")
+    strategy._latest_rsi = lambda _: Decimal("39")
 
     intent = strategy.decide(market)
 
@@ -131,7 +131,7 @@ def test_reenter_neutral_then_recross_unlocks_buy():
     strategy._latest_rsi = lambda _: Decimal("50")
     neutral_intent = strategy.decide(market1)
 
-    strategy._latest_rsi = lambda _: Decimal("57")
+    strategy._latest_rsi = lambda _: Decimal("61")
     buy_intent = strategy.decide(market2)
 
     assert _intent_type(neutral_intent) == "HOLD"
@@ -165,7 +165,7 @@ def test_insufficient_balance_on_cross_returns_hold():
     strategy = _make_strategy()
     strategy._prev_rsi_zone = "neutral"
     market = _market(datetime(2026, 1, 1, 12, 30, tzinfo=UTC), usdc_usd="5")
-    strategy._latest_rsi = lambda _: Decimal("56")
+    strategy._latest_rsi = lambda _: Decimal("61")
 
     intent = strategy.decide(market)
 

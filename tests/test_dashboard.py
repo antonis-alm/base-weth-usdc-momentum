@@ -26,7 +26,7 @@ def test_build_rsi_config_maps_strategy_fields():
 
 
 def test_render_custom_dashboard_uses_prepared_state():
-    strategy_config = {"rsi_period": 14, "upper_band": 55, "lower_band": 45}
+    strategy_config = {"rsi_period": 14, "upper_band": 60, "lower_band": 40}
     session_state = {"existing": True}
     prepared_state = {"enriched": True}
 
@@ -47,7 +47,8 @@ def test_render_custom_dashboard_uses_prepared_state():
     mock_render.assert_called_once()
     render_args = mock_render.call_args.args
     assert render_args[0] == "base_weth_usdc_momentum"
-    assert render_args[1] == strategy_config
+    assert render_args[1]["upper_band"] == 60
+    assert render_args[1]["lower_band"] == 40
     assert render_args[2] == prepared_state
 
 
@@ -67,4 +68,6 @@ def test_render_custom_dashboard_falls_back_when_prepare_fails():
             session_state,
         )
 
+    assert mock_render.call_args.args[1]["upper_band"] == 60
+    assert mock_render.call_args.args[1]["lower_band"] == 40
     assert mock_render.call_args.args[2] == session_state

@@ -31,7 +31,11 @@ def render_custom_dashboard(
 ) -> None:
     st.title("Base WETH/USDC Momentum")
 
-    config = _build_rsi_config(strategy_config)
+    normalized_config = dict(strategy_config)
+    normalized_config.setdefault("upper_band", 60)
+    normalized_config.setdefault("lower_band", 40)
+
+    config = _build_rsi_config(normalized_config)
 
     try:
         prepared_state = prepare_ta_session_state(
@@ -42,4 +46,4 @@ def render_custom_dashboard(
     except Exception:
         prepared_state = session_state
 
-    render_ta_dashboard(strategy_id, strategy_config, prepared_state, config)
+    render_ta_dashboard(strategy_id, normalized_config, prepared_state, config)

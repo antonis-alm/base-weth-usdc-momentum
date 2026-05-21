@@ -41,8 +41,8 @@ class BaseWethUsdcMomentumStrategy(IntentStrategy):
         self.timeframe = str(self.get_config("timeframe", "15m"))
 
         self.rsi_period = int(self.get_config("rsi_period", 14))
-        self.lower_band = Decimal(str(self.get_config("lower_band", 45)))
-        self.upper_band = Decimal(str(self.get_config("upper_band", 55)))
+        self.lower_band = Decimal(str(self.get_config("lower_band", 40)))
+        self.upper_band = Decimal(str(self.get_config("upper_band", 60)))
 
         self.min_trade_usd = Decimal(str(self.get_config("min_trade_usd", "25")))
         self.max_slippage_bps = int(self.get_config("max_slippage_bps", 50))
