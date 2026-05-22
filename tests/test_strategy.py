@@ -109,15 +109,18 @@ def test_neutral_to_below_cross_swaps_weth_to_usdc():
     assert intent.amount == "all"
 
 
-def test_repeat_direction_locked_until_neutral_reentry():
+def test_above_to_neutral_cross_exits_weth_to_usdc():
     strategy = _make_strategy()
     strategy._prev_rsi_zone = "above"
-    market = _market(datetime(2026, 1, 1, 12, 30, tzinfo=UTC))
+    market = _market(datetime(2026, 1, 1, 12, 30, tzinfo=UTC), weth_usd="80")
     strategy._latest_rsi = lambda _: Decimal("58")
 
     intent = strategy.decide(market)
 
-    assert _intent_type(intent) == "HOLD"
+    assert _intent_type(intent) == "SWAP"
+    assert intent.from_token == "WETH"
+    assert intent.to_token == "USDC"
+    assert intent.amount == "all"
 
 
 def test_reenter_neutral_then_recross_unlocks_buy():
@@ -127,7 +130,7 @@ def test_reenter_neutral_then_recross_unlocks_buy():
     market1 = _market(t1)
     market2 = _market(t2)
 
-    strategy._prev_rsi_zone = "above"
+    strategy._prev_rsi_zone = "below"
     strategy._latest_rsi = lambda _: Decimal("50")
     neutral_intent = strategy.decide(market1)
 

@@ -75,9 +75,12 @@ class BaseWethUsdcMomentumStrategy(IntentStrategy):
 
         should_buy = self._prev_rsi_zone == "neutral" and current_zone == "above"
         should_sell = self._prev_rsi_zone == "neutral" and current_zone == "below"
+        should_exit_to_neutral = self._prev_rsi_zone == "above" and current_zone == "neutral"
 
         self._prev_rsi_zone = current_zone
 
+        if should_exit_to_neutral:
+            return self._sell_all_base(market)
         if should_buy:
             return self._buy_all_quote(market)
         if should_sell:
