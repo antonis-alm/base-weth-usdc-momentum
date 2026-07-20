@@ -3,7 +3,7 @@ name = "base_weth_usdc_momentum"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
-    "almanak==2.22.0rc6",
+    "almanak==2.22.0rc9",
 ]
 
 [tool.almanak.run]
